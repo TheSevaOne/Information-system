@@ -301,6 +301,7 @@
 		ContractNum                                                        & integer                                                                              & РК    & Номер контракта                  \\ \hline
 		DateContract                                                       & \begin{tabular}[c]{@{}l@{}}date DEFAULT\\ CURDATE()\end{tabular}                     &       & Дата заключения контракта        \\ \hline
 		ContractSum                                                        & \begin{tabular}[c]{@{}l@{}}numeric(7,2) \\ CHECK (VALUE \textgreater 0)\end{tabular} &       & Контрактные средства на человека \\ \hline
+				CompanyId                                                        & integer                                                                              & FК(tblCompany)    &    Идентификатор компании           \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -335,7 +336,9 @@
 	
 		ClientName                                                         & varchar(40) NOT NULL       &                & Имя клиента          \\ \hline
 		ClientLastName                                                     & varchar(35) NOT NULL       &                & Фамилия клиента      \\ \hline
-		ClientMiddleName                                                   & varchar(35) NOT NULL       &                & Отчество клиента     \\ \hline
+		ClientMiddleName                                                   & varchar(35) NOT NULL       &                & Отчество клиента     \\
+						CompanyId                                                        & integer                                                                              & FК(tblCompany)    &    Идентификатор компании           \\ 
+						\hline
 			Ostatok                                                   & numeric(7,2)       & FK(tblNewOst)                & Остаток от контрактной\\& & & суммы     \\ \hline
 	\end{tabular}
 \end{table}
