@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.5)  27 DEC 2019 00:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.5)  27 DEC 2019 00:39
 entering extended mode
 **./IS.tex
 (IS.tex
@@ -451,11 +451,6 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (43.93385pt too wide) in paragraph at lines 419--428
-[][] 
- []
-
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
@@ -467,13 +462,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [9
 
  <./images/REL.jpg>] [10] [11]
-LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 463
+LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 465
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/cyrillic\t2acmtt.fd"
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
-Overfull \hbox (294.16318pt too wide) in paragraph at lines 488--488
+Overfull \hbox (294.16318pt too wide) in paragraph at lines 490--490
 []\T2A/cmtt/m/n/12 SET inserted.FinalPrice = ABS (@Contractsum-@PersonPrice)// 
 —только заплатит человек если деньги в контракте фирмы закончились[] 
  []
@@ -501,7 +496,7 @@ pData\Local\MiKTeX\2.9\fonts/pk/ljfour/lh/lh-t2a/dpi600\larm1200.pk> <C:\Users\
 Seva\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/lh/lh-t2a/dpi600\lacc1440.pk><C:/
 Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on IS.pdf (12 pages, 433743 bytes).
+Output written on IS.pdf (12 pages, 433737 bytes).
 PDF statistics:
  441 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

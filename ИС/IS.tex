@@ -420,7 +420,9 @@
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание                   \\ \hline
 	VisitData                                                          & \begin{tabular}[c]{@{}l@{}}date DEFAULT\\ CURDATE()\end{tabular}                     &       & Дата  визита                     \\ \hline
-		VisitId                                                         & integer            & PK             & Идентификатор обслуживания \\ \hline
+	
+	
+	VisitId                                                            & integer                                                                        & PK    & \begin{tabular}[c]{@{}l@{}}Идентификатор\\ обслуживания\end{tabular} \\ \hline
 		Service                                                            & varchar(40) NOT NULL       & FK(tblService) & Название услуги            \\ \hline
 	ClientId                                                             & integer           & FK(tblClient)  & Телефон клиента            \\ \hline
 		PricewoCom                                                         & \begin{tabular}[c]{@{}l@{}}integer\\ CHECK (VALUE \textgreater 0)  $T*$ \end{tabular}       &       & Стоимость без скидки             \\ \hline
