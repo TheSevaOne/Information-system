@@ -434,7 +434,7 @@
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание                 \\ \hline
 		ClientId                                                            & integer            & FK(tblClient)   & Идентификатор клиента \\ \hline
-		CheckId                                                          & integer            & FK(tblCheck) & Идентификатор счета    \\ \hline
+		CheckId                                                          & integer            & FK(tblCheck) & Идентификатор чека    \\ \hline
 		                                                         Ostatok    & numeric(7,2)  $T*$      &                & Остаток от контрактной суммы             \\ \hline
 	\end{tabular}
 \end{table}
@@ -476,7 +476,7 @@ DECLARE  @PersonPrice int , @Contractsum int, @Contract int  ;
 begin
 select @PersonPrice=inserted.FinalPrice from inserted
 select  @Contractsum = tblContract.PaidSum FROM tblContract  
-where /// нужны связи чтоб найти нужный контракт и взять сумму
+where tblCheck.CheckId==tblNewOst.CheckId
 if( (@Contractsum-@PersonPrice)<0)
 Begin
 UPDATE inserted
