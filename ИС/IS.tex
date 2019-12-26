@@ -267,7 +267,7 @@
 \begin{figure}[h]
 
 	\begin{minipage}[h]{1\linewidth}
-		\centering{ 	\includegraphics[width=1\linewidth]{ИС/images/ERD.jpg}\\}
+		\centering{ 	\includegraphics[width=1\linewidth]{images/ERD.jpg}\\}
 		\caption{ ERD диаграмма.}
 	\end{minipage}
 	
@@ -279,7 +279,7 @@
 \begin{figure}[h]
 	
 	\begin{minipage}[h]{1\linewidth}
-		\centering{ 	\includegraphics[width=1\linewidth]{ИС/images/REL.jpg}\\}
+		\centering{ 	\includegraphics[width=1\linewidth]{images/REL.jpg}\\}
 		\caption{Модель БД}
 	\end{minipage}
 	
@@ -296,8 +296,8 @@
 			\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен& Ключи & Описание                  \\ \hline
 			ContranctNum                                                       & integer            & PK    & Номер контракта           \\ \hline
 			DateContract                                                       & date DEFAULT\\ & CURDATE()               &       & Дата заключения контракта \\ \hline
-			PaidSum                                                            & numeric(7,2)\\
-			&CHECK (VALUE >0)       & FK(tblCompany)      & Оплаченная стоимость      \\ \hline
+			ContractSum                                                            & numeric(7,2)\\
+			&CHECK (VALUE >0)       &       & Контрактные ср-ва на чел      \\ \hline
 		\end{tabular}
 	\end{table}
 
@@ -317,7 +317,6 @@
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи & Описание                  \\ \hline
 		CompanyId                                                          & integer            & PK    & Идентификатор организации \\ \hline
 		CompanyName                                                        & var(40) NOT NULL           &       & Название организации      \\ \hline
-		PaidSum                                                            & numeric(7,2) \\&CHECK (VALUE >0)      &       & Оплаченная стоимость      \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -329,10 +328,12 @@
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание             \\ \hline
-		Number                                                             & integer \\ &CHECK (VALUE >0)          & PK             & Телефон клиента      \\ \hline
+		ClientId                                                          & integer            & PK    & Идентификатор клиента \\ \hline
+		Number                                                             & integer \\ &CHECK (VALUE >0)          &              & Телефон клиента      \\ \hline
 		ClientName                                                         & varchar(40) NOT NULL       &                & Имя клиента          \\ \hline
 		ClientLastName                                                     & varchar(35) NOT NULL       &                & Фамилия клиента      \\ \hline
 		ClientMiddleName                                                   & varchar(35) NOT NULL       &                & Отчество клиента     \\ \hline
+			Ostatok                                                   & numeric(7,2)       & FK(tblNewOst)                & Остаток от контрактной\\& & & суммы     \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -416,14 +417,23 @@
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание                   \\ \hline
 		VisitData                                                          & date DEFAULT\\& CURDATE()              &                & Дата визита                \\ \hline
-		HandlingId                                                         & integer            & PK             & Идентификатор обслуживания \\ \hline
+		VisitId                                                         & integer            & PK             & Идентификатор обслуживания \\ \hline
 		Service                                                            & varchar(40) NOT NULL       & FK(tblService) & Название услуги            \\ \hline
-		Number                                                             & integer CHECK\\ &(VALUE >0)           & FK(tblClient)  & Телефон клиента            \\ \hline
-			PricewoCom                                                             & integer CHECK\\ &(VALUE >0) Т*          &   & Стоимость без оплаченной 
-			\\& &стоимости \\ \hline
+	ClientId                                                             & integer           & FK(tblClient)  & Телефон клиента            \\ \hline
+			PricewoCom                                                             & integer CHECK\\ &(VALUE >0)  $T*$          &   & Стоимость без скидки 
+			 \\ \hline
 	\end{tabular}
 \end{table}
-
+\begin{table}[h]
+		\caption{Описание отношения Обновление остатков (tblNewOst)}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание                 \\ \hline
+		ClientId                                                            & integer            & FK(tblClient)   & Идентификатор клиента \\ \hline
+		CheckId                                                          & integer            & FK(tblCheck) & Идентификатор счета    \\ \hline
+		                                                         Ostatok    & numeric(7,2)  $T*$      &                & Остаток от контрактной суммы             \\ \hline
+	\end{tabular}
+\end{table}
 
 \begin{table}[h]
 		\caption{Описание отношения Счет(tblCheck)
@@ -432,6 +442,9 @@
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен & Ключи & Описание           \\ \hline
 		CheckId                                                            & integer            & РК    & Идентификатор чека \\ \hline
+	
+			ContractSum                                                            & numeric(7,2)\\
+			&CHECK (VALUE >0)       & FK(tblContract)      & Контрактные ср-ва на чел      \\ \hline
 		FinalPrice                                                         & numeric(7,2)   $T*$  &       & Стоимость к оплате \\ \hline
 		
 		
