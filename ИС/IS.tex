@@ -289,21 +289,20 @@
 
 
 
-	\begin{table}[h]
-			\caption{Описание отношения Договор (tblContract)}
-		\begin{tabular}{|l|l|l|l|}
-			\hline
-			\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен& Ключи & Описание                  \\ \hline
-			ContranctNum                                                       & integer            & PK    & Номер контракта           \\ \hline
-			DateContract                                                       & date DEFAULT\\ & CURDATE()               &       & Дата заключения контракта \\ \hline
-			ContractSum                                                            & numeric(7,2)\\
-			&CHECK (VALUE >0)       &       & Контрактные ср-ва на чел      \\ \hline
-		\end{tabular}
-	\end{table}
 
 
 
 
+\begin{table}[h]
+		\caption{Описание отношения Договор (tblContract)}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен (Тип данных)                                                                   & Ключи & Описание                         \\ \hline
+		ContractNum                                                        & integer                                                                              & РК    & Номер контракта                  \\ \hline
+		DateContract                                                       & \begin{tabular}[c]{@{}l@{}}date DEFAULT\\ CURDATE()\end{tabular}                     &       & Дата заключения контракта        \\ \hline
+		ContractSum                                                        & \begin{tabular}[c]{@{}l@{}}numeric(7,2) \\ CHECK (VALUE \textgreater 0)\end{tabular} &       & Контрактные средства на человека \\ \hline
+	\end{tabular}
+\end{table}
 
 
 
@@ -329,7 +328,11 @@
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание             \\ \hline
 		ClientId                                                          & integer            & PK    & Идентификатор клиента \\ \hline
-		Number                                                             & integer \\ &CHECK (VALUE >0)          &              & Телефон клиента      \\ \hline
+	
+	Number                                                             & \begin{tabular}[c]{@{}l@{}}integer \\ CHECK (VALUE \textgreater 0)\end{tabular}      & РК    & Телефон клиента                  \\ \hline
+	
+	
+	
 		ClientName                                                         & varchar(40) NOT NULL       &                & Имя клиента          \\ \hline
 		ClientLastName                                                     & varchar(35) NOT NULL       &                & Фамилия клиента      \\ \hline
 		ClientMiddleName                                                   & varchar(35) NOT NULL       &                & Отчество клиента     \\ \hline
@@ -389,7 +392,7 @@
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание                 \\ \hline
 		PriceId                                                            & integer            & FK(tblPrice)   & Идентификатор обновления \\ \hline
 		ServiceId                                                          & integer            & FK(tblService) & Идентификатор услуги     \\ \hline
-		Price                                                              & numeric(7,2) CHECK \\&(VALUE >0)      &                & Цена услуги              \\ \hline
+	Price                                                              & \begin{tabular}[c]{@{}l@{}}numeric (7,2)\\ CHECK (VALUE \textgreater 0)\end{tabular} &       & Цена услуги                      \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -400,7 +403,7 @@
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание             \\ \hline
 		VisitId                                                            & integer            & РК             & Идентификатор визита \\ \hline
 		ServiceId                                                          & integer            & FK(tblService) & Идентификатор услуги \\ \hline
-		Price                                                              & numeric(7,2) CHECK\\& (VALUE >0)      &                & Цена услуги          \\ \hline
+		Price                                                              & \begin{tabular}[c]{@{}l@{}}numeric (7,2)\\ CHECK (VALUE \textgreater 0)\end{tabular} &       & Цена услуги                      \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -416,12 +419,11 @@
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание                   \\ \hline
-		VisitData                                                          & date DEFAULT\\& CURDATE()              &                & Дата визита                \\ \hline
+	VisitData                                                          & \begin{tabular}[c]{@{}l@{}}date DEFAULT\\ CURDATE()\end{tabular}                     &       & Дата  визита                     \\ \hline
 		VisitId                                                         & integer            & PK             & Идентификатор обслуживания \\ \hline
 		Service                                                            & varchar(40) NOT NULL       & FK(tblService) & Название услуги            \\ \hline
 	ClientId                                                             & integer           & FK(tblClient)  & Телефон клиента            \\ \hline
-			PricewoCom                                                             & integer CHECK\\ &(VALUE >0)  $T*$          &   & Стоимость без скидки 
-			 \\ \hline
+		PricewoCom                                                         & \begin{tabular}[c]{@{}l@{}}integer\\ CHECK (VALUE \textgreater 0)  $T*$ \end{tabular}       &       & Стоимость без скидки             \\ \hline
 	\end{tabular}
 \end{table}
 \begin{table}[h]
@@ -443,13 +445,15 @@
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен & Ключи & Описание           \\ \hline
 		CheckId                                                            & integer            & РК    & Идентификатор чека \\ \hline
 	
-			ContractSum                                                            & numeric(7,2)\\
-			&CHECK (VALUE >0)       & FK(tblContract)      & Контрактные ср-ва на чел      \\ \hline
+		
+			
+			
+			
+			
 		FinalPrice                                                         & numeric(7,2)   $T*$  &       & Стоимость к оплате \\ \hline
 		
 		
-		
-		
+ContractSum                                                        & \begin{tabular}[c]{@{}l@{}}numeric(7,2) \\ CHECK (VALUE \textgreater 0)\end{tabular} & FK(tblContract) & \begin{tabular}[c]{@{}l@{}}Контрактные \\ средства на человека\end{tabular} \\ \hline
 		
 	\end{tabular}
 \centering{\\	$T*$ -	триггер на сравнение оставшейся суммы  по 	контракту и услуг, полученных клиентом.}
