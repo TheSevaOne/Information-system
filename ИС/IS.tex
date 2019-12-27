@@ -300,7 +300,7 @@
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен (Тип данных)                                                                   & Ключи & Описание                         \\ \hline
 		ContractNum                                                        & integer                                                                              & РК    & Номер контракта                  \\ \hline
 		DateContract                                                       & \begin{tabular}[c]{@{}l@{}}date DEFAULT\\ CURDATE()\end{tabular}                     &       & Дата заключения контракта        \\ \hline
-		ContractSum                                                        & \begin{tabular}[c]{@{}l@{}}numeric(7,2) \\ CHECK (VALUE \textgreater 0)\end{tabular} &       & Контрактные средства на человека \\ \hline
+		\multicolumn{1}{|l|}{ContratractSum} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}numeric(7,2)\\ CHECK (VALUE \textgreater 0)\end{tabular}} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Контрактная сумма \\ на человека\end{tabular}} \\ \hline
 				CompanyId                                                        & integer                                                                              & FК(tblCompany)    &    Идентификатор компании           \\ \hline
 	\end{tabular}
 \end{table}
