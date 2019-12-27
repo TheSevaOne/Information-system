@@ -330,7 +330,7 @@
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание             \\ \hline
 		ClientId                                                          & integer            & PK    & Идентификатор клиента \\ \hline
 	
-	Number                                                             & \begin{tabular}[c]{@{}l@{}}integer \\ CHECK (VALUE \textgreater 0)\end{tabular}      & РК    & Телефон клиента                  \\ \hline
+	Number                                                             & \begin{tabular}[c]{@{}l@{}}integer \\ CHECK (VALUE \textgreater 0)\end{tabular}      &    & Телефон клиента                  \\ \hline
 	
 	
 	
@@ -340,7 +340,7 @@
 		\hline
 						CompanyId                                                        & integer                                                                              & FК(tblCompany)    &    Идентификатор компании           \\ 
 						\hline
-			Ostatok                                                   & numeric(7,2)       &                & Остаток от контрактной\\& & & суммы     \\ \hline
+			Ostatok                                                   & numeric(7,2)       &  FK(tblNewOst)              & Остаток от контрактной\\& & & суммы     \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -405,9 +405,9 @@
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\begin{tabular}[c]{@{}l@{}}Название атрибута\\ (поля)\end{tabular} & Домен  & Ключи          & Описание             \\ \hline
-		VisitId                                                            & integer            & РК             & Идентификатор визита \\ \hline
+		VisitId                                                            & integer            & FK(tblHandling)             & Идентификатор визита \\ \hline
 		ServiceId                                                          & integer            & FK(tblService) & Идентификатор услуги \\ \hline
-		Price                                                              & \begin{tabular}[c]{@{}l@{}}numeric (7,2)\\ CHECK (VALUE \textgreater 0)\end{tabular} &       & Цена услуги                      \\ \hline
+		Price                                                              & \begin{tabular}[c]{@{}l@{}}numeric (7,2)\\ CHECK (VALUE \textgreater 0)\end{tabular} &     FK(tblNewPrice)  & Цена услуги                      \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -427,10 +427,11 @@
 	
 	
 	VisitId                                                            & integer                                                                        & PK    & \begin{tabular}[c]{@{}l@{}}Идентификатор\\ обслуживания\end{tabular} \\ \hline
-		Service                                                            & varchar(40) NOT NULL       & FK(tblService) & Название услуги            \\ \hline
-	ClientId                                                             & integer           & FK(tblClient)  & Телефон клиента            \\ \hline
+		ServiceID                                                            & integer       & FK(tblService) & Идентификатор услуги            \\ \hline
+	ClientId                                                             & integer           & FK(tblClient)  & Идентификатор клиента            \\ \hline
 		PricewoCom                                                         & \begin{tabular}[c]{@{}l@{}}integer\\ CHECK (VALUE \textgreater 0)  $T*$ \end{tabular}       &       & Стоимость без скидки             \\ \hline
 	\end{tabular}
+\centering{\\	$T*$ - триггер на изменение стоимости услуг без скидки для каждого визита при добавлении новой услуги в визит }
 \end{table}
 \begin{table}[h]
 		\caption{Описание отношения Обновление остатков (tblNewOst)}
@@ -504,6 +505,27 @@ tblNewOst.ClientID==tblClient.ClientId) and
 (SET tblClient.Ostatok=tblNewOst.Ostatok where 
 tblNewOst.ClientId==tblClient.ClientId)
 END
+
+\\T* Примерная структура  триггера на изменение стоимости услуг без скидки для
+\\каждого визита при добавлении новой услуги в визит
+
+USE InfSystem
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create trigger NewServicesSum  ON tblHandling
+AFTER INSERT
+AS 
+DECLARE  @ServiceSum int , @Visit int  ; 
+begin
+select @ServiceSum = SUM(Sales.Price) where
+tblHadling.ServiceId==tblSales.ServiceId,
+tblHadling.VisitId==tblSales.VisitId
+SET(tblHandling.PricewoCom =  @ServieSum where 
+tblHandling.VisitId==tblSales.VisitId)
+END
+
+
 \end{verbatim}
 
 
