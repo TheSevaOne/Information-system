@@ -340,7 +340,7 @@
 		\hline
 						CompanyId                                                        & integer                                                                              & FК(tblCompany)    &    Идентификатор компании           \\ 
 						\hline
-			Ostatok                                                   & numeric(7,2)       & FK(tblNewOst)                & Остаток от контрактной\\& & & суммы     \\ \hline
+			Ostatok                                                   & numeric(7,2)       &                & Остаток от контрактной\\& & & суммы     \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -441,6 +441,7 @@
 		CheckId                                                          & integer            & FK(tblCheck) & Идентификатор чека    \\ \hline
 		                                                         Ostatok    & numeric(7,2)  $T*$      &                & Остаток от контрактной суммы             \\ \hline
 	\end{tabular}
+\centering{\\	$T*$ - триггер на изменение текущих средств (см. Примерная структура триггера к  отношению tblCheck ).}
 \end{table}
 
 \begin{table}[h]
@@ -459,7 +460,7 @@
 		FinalPrice                                                         & numeric(7,2)   $T*$  &       & Стоимость к оплате \\ \hline
 		
 		
-ContractSum                                                        & \begin{tabular}[c]{@{}l@{}}numeric(7,2) \\ CHECK (VALUE \textgreater 0)\end{tabular} & FK(tblContract) & \begin{tabular}[c]{@{}l@{}}Контрактные \\ средства на человека\end{tabular} \\ \hline
+
 		
 	\end{tabular}
 \centering{\\	$T*$ -	триггер на сравнение оставшейся суммы  по 	контракту и услуг, полученных клиентом.}
@@ -467,29 +468,41 @@ ContractSum                                                        & \begin{tabu
 
 \clearpage
 \begin{verbatim}
-// T* Примерная структура триггера к  отношению tblCheck
+// T* Примерная структура триггера к  отношению tblCheck  при подсчете стоимости к
+//оплате за лечение
 USE InfSystem
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-Create trigger Compare   ON tblCheck
+Create trigger Compareandchange   ON tblCheck
 AFTER INSERT
 AS 
-
 DECLARE  @PersonPrice int , @Contractsum int, @Contract int  ; 
 begin
 select @PersonPrice=inserted.FinalPrice from inserted
-select  @Contractsum = tblContract.PaidSum FROM tblContract  
-where tblCheck.CheckId==tblNewOst.CheckId
-if( (@Contractsum-@PersonPrice)<0)
+select  @Contractsum = tblClient.Ostatok FROM tblClient
+where tblCheck.CheckId==tblNewOst.CheckId, 
+tblNewOst.ClientID==tblClient.ClientId, 
+tblClient.CompanyId==tblCompany.CompanyId, 
+tblCompany.CompanyId==tblContract.CompanyId
+if( (@Contractsum-@PersonPrice)<=0)
 Begin
-UPDATE inserted
-SET inserted.FinalPrice = ABS (@Contractsum-@PersonPrice)// Столько заплатит человек если деньги в контракте фирмы закончились
-WHERE MAX(CheckID)
+UPDATE tblCheck
+(SET tblCheck.FinalPrice = ABS (@Contractsum-@PersonPrice)
+WHERE MAX(CheckID))and(SET tblNewOst.Ostatok= 0 where 
+tblCheck.CheckId==tblNewOst.CheckId, 
+tblNewOst.ClientID==tblClient.ClientId) and
+ (SET tblClient.Ostatok=tblNewOst.Ostatok where 
+ tblNewOst.ClientId==tblClient.ClientId)
 END
 else
-SET inserted.FinalPrice = 0 
-WHERE MAX(CheckID)
+(SET inserted.FinalPrice = 0 
+WHERE MAX(CheckID)) and 
+(SET tblNewOst.Ostatok=@Contractsum-@PersonPrice where 
+tblCheck.CheckId==tblNewOst.CheckId, 
+tblNewOst.ClientID==tblClient.ClientId) and 
+(SET tblClient.Ostatok=tblNewOst.Ostatok where 
+tblNewOst.ClientId==tblClient.ClientId)
 END
 \end{verbatim}
 
