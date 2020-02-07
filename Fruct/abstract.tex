@@ -43,7 +43,8 @@ The article presents a software tool for text autocorrection. The application ca
 
 \medskip
 The article presents a solution based on the analysis of the input word.
-The algorithm continuously checks the tree for the closest possibly correct word to the input word and returns it to the user. Plugin was created for the Aurora mobile operating system (Sailfish OS).
+The algorithm continuously checks the tree for the closest possibly correct word to the input word and returns it to the user. Plugin was created for the Aurora mobile operating system (Sailfish OS) in C ++ (Qt creator).
+
 
 There are a lot of approaches to autocorrection, but the dircitonary approach has the most amount of advantages. This method allows the smallest number of errors. Moreover, only the dictionary method allows implementing in the auto-correction program the advancement of alternatives to the word being verified and the adoption of one of them as an automatic correction, which is necessary and can be used for auto-correction for the virtual keyboard (since the post-control of automatically corrected places by the user is provided).
 
@@ -70,11 +71,15 @@ Suppose we take an arbitrary string and compare it with $Str$. Since we know tha
 The overall architecture is shown in the Figure~\ref{arh}.
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[width=0.3\textwidth]{images/pic.png}
+	\includegraphics[width=0.35\textwidth]{images/scheme}
 	\caption{
-		Arcitecture of spelling appilcstion}
+		Arcitecture of spelling application}
 	\label{arh}
 \end{figure}
+
+
+The application works this way. The user begins to enter a word and similar words begin to be displayed to him. If a person is mistaken, the word will be corrected.
+
 
 In the current stage of this progect four possible outcomes are possible for the user: there are no possible variant for correct word (see Fig.~\ref{zero}), there is one possible variant for correct word (see Fig.~\ref{one}) there are two possible variants for correct word (see Fig.~\ref{two}) and there are three possible variants for correct word(see Fig.~\ref{three}). 
 
@@ -111,13 +116,6 @@ In the current stage of this progect four possible outcomes are possible for the
 \
 
 
-
-
-\begin{enumerate} 
-	
-	\bibitem{a} 
-
-\end{enumerate}
 
 \end{document}
 
